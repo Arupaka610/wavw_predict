@@ -1,0 +1,73 @@
+grid:
+  dx: 100.0       # [m] spatial resolution x
+  dy: 100.0       # [m] spatial resolution y
+  dt: 2.0         # [s] time step
+  nx: 256
+  ny: 256
+  h_min: 0.001    # [m] wetting/drying threshold
+
+physics:
+  g: 9.81
+  rho_water: 1025.0
+  rho_fresh: 1000.0
+  manning_n: 0.025
+  cfl: 0.5
+  sponge_cells: 10
+
+model:
+  fno:
+    in_channels: 6
+    out_channels: 3
+    width: 64
+    modes1: 32
+    modes2: 32
+    n_layers: 4
+  wave_force_net:
+    in_features: 14
+    hidden: 128
+    n_layers: 4
+  embankment_net:
+    in_features: 8
+    tcn_channels: [64, 128, 128]
+    kernel_size: 3
+    dilations: [1, 2, 4]
+    dropout: 0.1
+    seq_len: 60
+
+training:
+  seed: 42
+  device: "cuda"
+  mixed_precision: true
+  fno:
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    batch_size: 16
+    epochs: 100
+    finetune_epochs: 20
+    lambda_physics: 0.1
+    lambda_grad: 0.01
+    rollout_gamma: 0.9
+    grad_clip: 1.0
+  wave_force_net:
+    lr: 3.0e-4
+    batch_size: 512
+    epochs: 200
+    lambda_physics: 0.5
+  embankment_net:
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    batch_size: 128
+    epochs: 150
+    focal_gamma: 2.0
+    lambda_breach: 1.0
+
+paths:
+  data_root: "data"
+  checkpoint_dir: "checkpoints"
+  log_dir: "logs"
+  normalizer_path: "data/processed/normalizer.npz"
+
+uncertainty:
+  n_mc_samples: 50
+  n_ensemble: 5
+  dropout_rate: 0.1

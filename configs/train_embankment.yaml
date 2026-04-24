@@ -1,0 +1,12 @@
+defaults:
+  - base
+
+training:
+  embankment_net:
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    batch_size: 128
+    epochs: 150
+    focal_gamma: 2.0
+    lambda_breach: 1.0
+    pct_start: 0.3

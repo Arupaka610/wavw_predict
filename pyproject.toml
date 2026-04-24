@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wavw_predict"
+version = "0.1.0"
+description = "High-precision hybrid tsunami analysis model"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.1",
+    "numpy>=1.24",
+    "scipy>=1.11",
+    "netCDF4>=1.6",
+    "h5py>=3.9",
+    "omegaconf>=2.3",
+    "hydra-core>=1.3",
+    "pandas>=2.0",
+    "xarray>=2023.6",
+    "matplotlib>=3.7",
+    "scikit-learn>=1.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4", "pytest-cov", "black", "ruff"]
+viz = ["cartopy>=0.22"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

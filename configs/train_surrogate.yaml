@@ -1,0 +1,16 @@
+defaults:
+  - base
+
+training:
+  fno:
+    lr: 1.0e-3
+    weight_decay: 1.0e-4
+    batch_size: 16
+    epochs: 100
+    finetune_epochs: 20
+    lambda_physics: 0.1
+    lambda_grad: 0.01
+    rollout_gamma: 0.9
+    grad_clip: 1.0
+    curriculum_steps: 5    # increase rollout horizon every N epochs
+    max_rollout: 10
