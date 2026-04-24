@@ -1,0 +1,10 @@
+defaults:
+  - base
+
+training:
+  wave_force_net:
+    lr: 3.0e-4
+    batch_size: 512
+    epochs: 200
+    lambda_physics: 0.5
+    patience: 10

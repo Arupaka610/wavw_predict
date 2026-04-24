@@ -1,0 +1,14 @@
+defaults:
+  - base
+
+grid:
+  dx: 50.0
+  dy: 50.0
+  dt: 1.0
+  nx: 512
+  ny: 512
+
+physics:
+  manning_n: 0.025
+  cfl: 0.4
+  sponge_cells: 15
